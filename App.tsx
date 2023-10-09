@@ -5,16 +5,12 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import ScreenSplash1 from './Screen1';
+import Index from "./src/root";
 
-
-export default function Trial() {
-
+const App = ({ navigation }: { navigation: any }) => {
   return (
-    <ScreenSplash1 />
+    <Index />
   );
 }
 
-// export default App;
+export default App;
