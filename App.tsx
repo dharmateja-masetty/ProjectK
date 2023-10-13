@@ -5,9 +5,32 @@
  * @format
  */
 
+import { useEffect } from "react";
+import { Alert, BackHandler } from "react-native";
 import Index from "./src/root";
 
 const App = ({ navigation }: { navigation: any }) => {
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Hold on!', 'Are you sure you want to go back?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        { text: 'YES', onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <Index />
   );
