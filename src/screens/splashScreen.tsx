@@ -24,7 +24,7 @@ export default function SplashScreen() {
     //             e.preventDefault(); 
     //         }),
     // );
-    
+
     return (
         <>
             <Text>Wow screen!</Text>

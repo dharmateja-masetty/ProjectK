@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export default function Index() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Splash" screenOptions={{headerShown: false}}>
+            <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='Splash' component={SplashScreen} />
                 <Stack.Screen name='Home' component={ScreenSplash1} />
                 <Stack.Screen name='Profile' component={ScreenSplash2} />
