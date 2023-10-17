@@ -5,11 +5,12 @@
  * @format
  */
 
-import { useEffect } from "react";
-import { Alert, BackHandler } from "react-native";
-import Index from "./src/root";
+import {useEffect} from 'react';
+import {Alert, BackHandler} from 'react-native';
+import Index from './src/root';
+import React from 'react';
 
-const App = ({ navigation }: { navigation: any }) => {
+const App = ({navigation}: {navigation: any}) => {
   useEffect(() => {
     const backAction = () => {
       Alert.alert('Hold on!', 'Are you sure you want to go back?', [
@@ -18,7 +19,7 @@ const App = ({ navigation }: { navigation: any }) => {
           onPress: () => null,
           style: 'cancel',
         },
-        { text: 'YES', onPress: () => BackHandler.exitApp() },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
       ]);
       return true;
     };
@@ -31,9 +32,7 @@ const App = ({ navigation }: { navigation: any }) => {
     return () => backHandler.remove();
   }, []);
 
-  return (
-    <Index />
-  );
-}
+  return <Index />;
+};
 
 export default App;
