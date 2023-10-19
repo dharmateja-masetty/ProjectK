@@ -7,10 +7,10 @@
 
 import {useEffect} from 'react';
 import {Alert, BackHandler} from 'react-native';
-import Index from './src/root';
+import Index from './src/root/';
 import React from 'react';
 
-const App = ({navigation}: {navigation: any}) => {
+const App = () => {
   useEffect(() => {
     const backAction = () => {
       Alert.alert('Hold on!', 'Are you sure you want to go back?', [

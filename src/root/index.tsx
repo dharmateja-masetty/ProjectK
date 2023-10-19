@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SplashScreen from '../screens/splash/splashScreen';
 import React from 'react';
 import ProfileScreen from '../screens/profile/Profile';
-import HomeScreen from '../screens/home';
+import HomeScreen from '../routes/index';
 
 export type StackParamList = {
   Home: undefined;
