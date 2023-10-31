@@ -113,7 +113,6 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container2}>
       <View>
-        {/* <Text style={styles.buttonTextStyle}>{'This is profile'}</Text> */}
         <TextInput style={styles.input} placeholder="Search" />
       </View>
       <FlatList
