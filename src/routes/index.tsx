@@ -9,7 +9,7 @@ export default function App() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={ProfileScreen} />
+      <Tab.Screen name="Products" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
