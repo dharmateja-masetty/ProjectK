@@ -6,9 +6,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import React, {useState} from 'react';
 import styles from './styles';
 import {data} from './data.json';
+import {useNavigation} from '@react-navigation/native';
+import {StackParamList} from '../../root';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type ItemProps = {
   item: ItemData;
@@ -37,8 +41,15 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
 );
 
 export default function ProfileScreen() {
-  const [selectedId, setSelectedId] = useState<string>();
+  const navigation: NativeStackNavigationProp<StackParamList> = useNavigation();
 
+  function navigateToProductDetails(item: ItemData) {
+    setSelectedId(item.id);
+    navigation.navigate('ProductDetailedPage', {
+      item,
+    });
+  }
+  const [selectedId, setSelectedId] = useState<string>();
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.id === selectedId ? 'white' : 'white';
     const color = item.id === selectedId ? 'lightblue' : 'black';
@@ -46,7 +57,7 @@ export default function ProfileScreen() {
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.id)}
+        onPress={() => navigateToProductDetails(item)}
         backgroundColor={backgroundColor}
         textColor={color}
       />
