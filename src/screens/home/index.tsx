@@ -1,11 +1,8 @@
 import {Button, Text, View} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {StackParamList} from '../../root';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import styles from './styles';
-
-type HomeScreenProps = NativeStackScreenProps<StackParamList>;
+import {HomeScreenProps} from '../../utils/types';
 
 export default function HomeScreen({navigation}: HomeScreenProps) {
   const navigateToProfile = () => {

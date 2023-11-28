@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   FlatList,
   Image,
@@ -6,118 +7,77 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+
+import React, {FC, useEffect, useState} from 'react';
 import styles from './styles';
-
-type ItemProps = {
-  item: ItemData;
-  onPress: () => void;
-  backgroundColor: string;
-  textColor: string;
-};
-
-type ItemData = {
-  id: string;
-  title: string;
-};
-
-const Data = [
-  {
-    id: '11',
-    title: 'ersten Item',
-  },
-  {
-    id: '12',
-    title: 'zweite Item',
-  },
-  {
-    id: '13',
-    title: 'dritte Item',
-  },
-  {
-    id: '14',
-    title: 'veirte Item',
-  },
-  {
-    id: '15',
-    title: 'funfte Item',
-  },
-  {
-    id: '16',
-    title: 'sechste Item',
-  },
-  {
-    id: '17',
-    title: 'sibste Item',
-  },
-  {
-    id: '18',
-    title: 'achte Item',
-  },
-  {
-    id: '19',
-    title: 'neinete Item',
-  },
-  {
-    id: '20',
-    title: 'zehnte Item',
-  },
-  {
-    id: '21',
-    title: 'elfte Item',
-  },
-  {
-    id: '22',
-    title: 'zwolfte Item',
-  },
-  {
-    id: '23',
-    title: 'dreizehnte Item',
-  },
-  {
-    id: '24',
-    title: 'vierzehnte Item',
-  },
-];
+import {data} from './data.json';
+import {useNavigation} from '@react-navigation/native';
+import {StackParamList} from '../../root';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {ItemData, ItemProps} from '../../utils/types';
 
 const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
     <View style={[styles.itemstyle]}>
-      <View style={[styles.itemImageStyle]}>
-        <Image source={require('../../images/ScreenImage.png')} />
-      </View>
+      <Image style={[styles.itemImageStyle]} source={{uri: item.imageSource}} />
       <Text style={[styles.buttonTextStyle, {color: textColor}]}>
         {item.title}
       </Text>
-      <Text>{'Cost is $$$'}</Text>
+      <Text style={{color: textColor}}>{`Cost is ${item.cost}`}</Text>
     </View>
   </TouchableOpacity>
 );
 
 export default function ProfileScreen() {
-  const [selectedId, setSelectedId] = useState<string>();
+  const navigation: NativeStackNavigationProp<StackParamList> = useNavigation();
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [displayData, setDisplayData] = useState<ItemData[]>(data);
 
+  useEffect(() => {
+    let Timer = setTimeout(() => {
+      const filteredData = data.filter(item =>
+        item.title.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+      setDisplayData(filteredData);
+      console.log(searchTerm);
+    }, 700);
+    return () => {
+      clearTimeout(Timer);
+    };
+  }, [searchTerm]);
+
+  function navigateToProductDetails(item: ItemData) {
+    setSelectedId(item.id);
+    navigation.navigate('ProductDetail', {
+      item,
+    });
+  }
+  const [selectedId, setSelectedId] = useState<string>();
   const renderItem = ({item}: {item: ItemData}) => {
-    const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
-    const color = item.id === selectedId ? 'white' : 'black';
+    const backgroundColor = item.id === selectedId ? 'white' : 'white';
+    const color = item.id === selectedId ? 'lightblue' : 'black';
 
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.id)}
+        onPress={() => navigateToProductDetails(item)}
         backgroundColor={backgroundColor}
         textColor={color}
       />
     );
   };
+
   return (
     <View style={styles.container2}>
       <View>
-        {/* <Text style={styles.buttonTextStyle}>{'This is profile'}</Text> */}
-        <TextInput style={styles.input} placeholder="Search" />
+        <TextInput
+          style={styles.input}
+          placeholder="Search"
+          onChangeText={value => setSearchTerm(value)}
+        />
       </View>
       <FlatList
-        data={Data}
+        data={displayData}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         extraData={selectedId}

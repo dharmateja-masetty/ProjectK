@@ -9,9 +9,8 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
   },
   item: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    marginVertical: 20,
+    marginHorizontal: 30,
   },
   buttonTextStyle: {
     fontSize: 20,
@@ -23,22 +22,24 @@ const styles = StyleSheet.create({
   },
   container2: {
     flex: 1,
-    backgroundColor: 'lightblue',
+    backgroundColor: 'white',
   },
   itemstyle: {
-    flex: 1,
-    justifyContent: 'center',
+    borderRadius: 30,
     height: windowHeight / 4,
     width: windowWidth / 3,
   },
   itemImageStyle: {
-    borderColor: 'black',
+    borderRadius: 20,
+    backgroundColor: 'lightblue',
+    width: 160,
+    height: 170,
   },
   input: {
     height: 40,
     margin: 12,
     borderWidth: 1,
-    padding: 10,
+    borderRadius: 10,
   },
 });
 
