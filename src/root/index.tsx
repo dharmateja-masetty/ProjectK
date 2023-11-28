@@ -4,19 +4,14 @@ import SplashScreen from '../screens/splash/splashScreen';
 import React from 'react';
 import ProfileScreen from '../screens/profile/Profile';
 import HomeScreen from '../routes/index';
-import ProductDetailedPage from '../screens/ProductDetailPage/ProductDetailedPage';
+import ProductDetail from '../screens/ProductDetailPage/ProductDetailedPage';
+import {ItemData} from '../utils/types';
 
-type ItemData = {
-  id: string;
-  title: string;
-  cost: string;
-  imageSource: string;
-};
 export type StackParamList = {
   Home: undefined;
   Profile: undefined;
   Splash: undefined;
-  ProductDetailedPage: {
+  ProductDetail: {
     item: ItemData;
   };
 };
@@ -32,10 +27,7 @@ export default function Index() {
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen
-          name="ProductDetailedPage"
-          component={ProductDetailedPage}
-        />
+        <Stack.Screen name="ProductDetail" component={ProductDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

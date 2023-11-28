@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 
-import React, {FC, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {data} from './data.json';
 import {useNavigation} from '@react-navigation/native';
@@ -30,22 +30,8 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
 
 export default function ProfileScreen() {
   const navigation: NativeStackNavigationProp<StackParamList> = useNavigation();
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [displayData, setDisplayData] = useState<ItemData[]>(data);
-
-  useEffect(() => {
-    let Timer = setTimeout(() => {
-      const filteredData = data.filter(item =>
-        item.title.toLowerCase().includes(searchTerm.toLowerCase()),
-      );
-      setDisplayData(filteredData);
-      console.log(searchTerm);
-    }, 700);
-    return () => {
-      clearTimeout(Timer);
-    };
-  }, [searchTerm]);
-
+  const [searchTerm, setSearchTerm] = useState<string>();
+  const [displayData, setDisplayData] = useState<ItemData[]>();
   function navigateToProductDetails(item: ItemData) {
     setSelectedId(item.id);
     navigation.navigate('ProductDetail', {
@@ -67,17 +53,22 @@ export default function ProfileScreen() {
     );
   };
 
+  useEffect(() => {
+    const filteredData = data.filter(item => item.title.includes(searchTerm));
+    setDisplayData(filteredData);
+  }, [searchTerm, setDisplayData]);
+
   return (
     <View style={styles.container2}>
       <View>
         <TextInput
           style={styles.input}
           placeholder="Search"
-          onChangeText={value => setSearchTerm(value)}
+          onChangeText={(value: string) => setSearchTerm(value)}
         />
       </View>
       <FlatList
-        data={displayData}
+        data={data}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         extraData={selectedId}

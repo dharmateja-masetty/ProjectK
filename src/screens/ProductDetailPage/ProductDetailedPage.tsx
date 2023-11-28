@@ -2,16 +2,10 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {Button, Image, Text, View} from 'react-native';
 import {StackParamList} from '../../root';
 import styles from './styles';
-import React from 'react'; //Need to check y?
+import React, {FC} from 'react'; //Need to check y?
+import {ItemData} from '../../utils/types';
 
-type ItemData = {
-  id: string;
-  title: string;
-  cost: string;
-  imageSource: string;
-};
-
-const ProductDetailedPage = () => {
+const ProductDetail: FC = () => {
   const route: RouteProp<StackParamList> = useRoute();
   const navigation = useNavigation();
   const items: ItemData | undefined = route.params
@@ -49,4 +43,4 @@ const ProductDetailedPage = () => {
     </>
   );
 };
-export default ProductDetailedPage;
+export default ProductDetail;
